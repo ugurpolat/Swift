@@ -1,5 +1,5 @@
 import UIKit
-
+/*
 struct Laptop {
     
     var brand : String
@@ -110,12 +110,12 @@ struct Human {
     }
     
     init() {
-         hairColor = "String"
-         eyeColor = "String"
-         height = -1
-         age = -1
-         gender = false
-         carBrand = "String"
+        hairColor = "String"
+        eyeColor = "String"
+        height = -1
+        age = -1
+        gender = false
+        carBrand = "String"
     }
 }
 
@@ -123,5 +123,52 @@ var h1 : Human = Human(hairColor: "Black", eyeColor: "Brown", height: 1.87, age:
 var h2 : Human = Human()
 print(h2)
 
-
+*/
 // -------------------------------------------------------------------------------------------------
+
+struct Flat {
+    var odaSayisi : Int
+    var salonSayisi : Int
+    var daireBuyuklugu : Double
+    var banyoSayisi : Int
+    var tuvaletSayisi : Int
+    var satilik : Bool
+    var kiralik : Bool
+    var dolu : Bool
+    var daireSahibininAdi : String
+    var daireSahibininTelNo : String
+    var katNo : Int?
+    var kapiNo : Int?
+
+    func daireBilgileriniGoster() {
+        
+        guard let katNo = katNo else { return }
+        guard let kapiNo = kapiNo else { return }
+        
+        print("""
+        ------------------------------------
+            DAIRE BILGILERI
+    Oda Sayisi : \(odaSayisi)
+    Salon Sayisi : \(salonSayisi)
+    Banyo Sayisi : \(banyoSayisi)
+    \(katNo). Kat Daire - \(kapiNo)
+
+""")
+    print("-----")
+        print(katNo)
+        
+        if satilik {
+            print("Daire satilik")
+        } else if kiralik {
+            print("Daire kiralik")
+        } else if dolu {
+            print("Daire  dairede suan birileri oturuyor")
+        } else {
+            print("Daire bilgisi bulunmamakta")
+        }
+    }
+}
+
+let flat : Flat = Flat(odaSayisi: 10, salonSayisi: 10, daireBuyuklugu: 10, banyoSayisi: 10, tuvaletSayisi: 10, satilik: false, kiralik: true, dolu: false, daireSahibininAdi: "11", daireSahibininTelNo: "11")
+
+flat.daireBilgileriniGoster()
