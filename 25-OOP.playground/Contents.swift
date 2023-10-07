@@ -112,6 +112,8 @@ muthisYemekTarifleri.enBegenilenYemegiGoster()
 
  */
 
+
+/*
 class MobilUygulama {
     var uygulamaAdi : String
     var gelistiriciKisi : String
@@ -160,15 +162,122 @@ class AppStore {
 var appstore : AppStore = AppStore(uygulamalar: [instagram])
 appstore.uygulamaYukle(uygulama: snapchat)
 
+*/
+
+/*
+// Inheritance
+
+struct DersNote {
+    var dersinAdi : String
+    var harfNot : Character
+    var sayisalNot : Int
+    var kredi : Int
+}
+
+class Kisi {
+    var adi : String
+    var soyadi : String
+    var dogumYili : Int
+    init(adi: String, soyadi: String, dogumYili: Int) {
+        self.adi = adi
+        self.soyadi = soyadi
+        self.dogumYili = dogumYili
+    }
+}
+
+class Ogrenci : Kisi {
+    var dersler : [DersNote] = []
+    func notKaydet(ders : DersNote) {
+        dersler.append(ders)
+    }
+    func dersleriListele() {
+        dersler.forEach { ders in
+            print("Dersin Adi : \(ders.dersinAdi)")
+            print("Dersin Adi : \(ders.harfNot)")
+            print("Dersin Adi : \(ders.sayisalNot)")
+            print("Dersin Adi : \(ders.kredi)")
+            print("----------------------------------")
+        }
+    }
+}
+
+let ahmet = Kisi(adi: "Ugur", soyadi: "Polat", dogumYili: 1995)
+let jane = Ogrenci(adi: "Jane", soyadi: "Brown", dogumYili: 1990)
+
+print(ahmet.adi)
+print(jane.adi)
+print(jane.dersler)
+
+let tarih = DersNote(dersinAdi: "Tarih", harfNot: "A", sayisalNot: 85, kredi: 4)
+jane.notKaydet(ders: tarih)
+
+jane.dersleriListele()
+
+ */
+
+// Override methods
 
 
+class Personel {
+    var adiSoyadi : String
+    var yasi : Int
+    var departman : String
+    var maas : Int
+    
+    init(){
+        self.adiSoyadi = ""
+        self.yasi = 0
+        self.departman = ""
+        self.maas = 0
+
+    }
+    
+    init(adiSoyadi: String, yasi: Int, departman: String, maas: Int) {
+        self.adiSoyadi = adiSoyadi
+        self.yasi = yasi
+        self.departman = departman
+        self.maas = maas
+    }
+    
+    func bilgileriGoster() {
+        print("----------------------------------")
+        print("Adi Soyadi: \(adiSoyadi)")
+        print("Yasi : \(yasi)")
+        print("Departman : \(departman)")
+        print("Maasi : \(maas)")
+    }
+}
+
+class Yonetici : Personel {
+    var gorevi : String
+    
+    override init() {
+        self.gorevi = ""
+        super.init()
+    }
+    
+    init(adiSoyadi: String, yasi: Int, departman: String, maas: Int, gorevi : String) {
+        self.gorevi = gorevi
+        super.init(adiSoyadi: adiSoyadi, yasi: yasi, departman: departman, maas: maas)
+    }
+    
+    override init(adiSoyadi: String, yasi: Int, departman: String, maas: Int) {
+        self.gorevi = "Gorevi bilinmemektedir."
+        super.init(adiSoyadi: adiSoyadi, yasi: yasi, departman: departman, maas: maas)
+    }
+    
+    override func bilgileriGoster() {
+        super.bilgileriGoster()
+        print("Gorevi: \(gorevi)")
+    }
+}
+
+let personel : Personel = Personel(adiSoyadi: "Ugur Polat", yasi: 28, departman: "Insan Kaynaklari", maas: 5000)
+personel.bilgileriGoster()
+let yonetici : Yonetici = Yonetici(adiSoyadi: "Selma Gundogdu", yasi: 29, departman: "Yazilim", maas: 4500, gorevi: "Genel Mudur")
+yonetici.bilgileriGoster()
 
 
-
-
-
-
-
-
-
+let yonetici_2 : Yonetici = Yonetici()
+yonetici_2.bilgileriGoster()
 
