@@ -215,69 +215,237 @@ jane.dersleriListele()
 
  */
 
-// Override methods
+/*
+ // Override methods
+ class Personel {
+ var adiSoyadi : String
+ var yasi : Int
+ var departman : String
+ var maas : Int
+ 
+ init(){
+ self.adiSoyadi = ""
+ self.yasi = 0
+ self.departman = ""
+ self.maas = 0
+ 
+ }
+ 
+ init(adiSoyadi: String, yasi: Int, departman: String, maas: Int) {
+ self.adiSoyadi = adiSoyadi
+ self.yasi = yasi
+ self.departman = departman
+ self.maas = maas
+ }
+ 
+ func bilgileriGoster() {
+ print("----------------------------------")
+ print("Adi Soyadi: \(adiSoyadi)")
+ print("Yasi : \(yasi)")
+ print("Departman : \(departman)")
+ print("Maasi : \(maas)")
+ }
+ }
+ 
+ class Yonetici : Personel {
+ var gorevi : String
+ 
+ override init() {
+ self.gorevi = ""
+ super.init()
+ }
+ 
+ init(adiSoyadi: String, yasi: Int, departman: String, maas: Int, gorevi : String) {
+ self.gorevi = gorevi
+ super.init(adiSoyadi: adiSoyadi, yasi: yasi, departman: departman, maas: maas)
+ }
+ 
+ override init(adiSoyadi: String, yasi: Int, departman: String, maas: Int) {
+ self.gorevi = "Gorevi bilinmemektedir."
+ super.init(adiSoyadi: adiSoyadi, yasi: yasi, departman: departman, maas: maas)
+ }
+ 
+ override func bilgileriGoster() {
+ super.bilgileriGoster()
+ print("Gorevi: \(gorevi)")
+ }
+ }
+ 
+ let personel : Personel = Personel(adiSoyadi: "Ugur Polat", yasi: 28, departman: "Insan Kaynaklari", maas: 5000)
+ personel.bilgileriGoster()
+ let yonetici : Yonetici = Yonetici(adiSoyadi: "Selma Gundogdu", yasi: 29, departman: "Yazilim", maas: 4500, gorevi: "Genel Mudur")
+ yonetici.bilgileriGoster()
+ 
+ 
+ let yonetici_2 : Yonetici = Yonetici()
+ yonetici_2.bilgileriGoster()
+ 
+ */
 
-
-class Personel {
-    var adiSoyadi : String
-    var yasi : Int
-    var departman : String
-    var maas : Int
+/*
+// Poliformizm
+ 
+class GeometrikSekil {
+    var genelAdi : String
     
-    init(){
-        self.adiSoyadi = ""
-        self.yasi = 0
-        self.departman = ""
-        self.maas = 0
-
+    init(genelAdi: String) {
+        self.genelAdi = genelAdi
     }
     
-    init(adiSoyadi: String, yasi: Int, departman: String, maas: Int) {
-        self.adiSoyadi = adiSoyadi
-        self.yasi = yasi
-        self.departman = departman
-        self.maas = maas
+    func alanHesapla() -> Double {
+        
+        return 0.0
     }
     
-    func bilgileriGoster() {
-        print("----------------------------------")
-        print("Adi Soyadi: \(adiSoyadi)")
-        print("Yasi : \(yasi)")
-        print("Departman : \(departman)")
-        print("Maasi : \(maas)")
+    func cevreHesapla() -> Double {
+        return 0.0
     }
 }
 
-class Yonetici : Personel {
-    var gorevi : String
+
+class Dikdortgen : GeometrikSekil {
+    var kenar1 : Double
+    var kenar2 : Double
     
-    override init() {
-        self.gorevi = ""
-        super.init()
+    init(kenar1: Double, kenar2: Double) {
+        self.kenar1 = kenar1
+        self.kenar2 = kenar2
+        super.init(genelAdi: "Diktorgen")
     }
     
-    init(adiSoyadi: String, yasi: Int, departman: String, maas: Int, gorevi : String) {
-        self.gorevi = gorevi
-        super.init(adiSoyadi: adiSoyadi, yasi: yasi, departman: departman, maas: maas)
+    override func alanHesapla() -> Double {
+         return kenar1 * kenar2
     }
     
-    override init(adiSoyadi: String, yasi: Int, departman: String, maas: Int) {
-        self.gorevi = "Gorevi bilinmemektedir."
-        super.init(adiSoyadi: adiSoyadi, yasi: yasi, departman: departman, maas: maas)
-    }
-    
-    override func bilgileriGoster() {
-        super.bilgileriGoster()
-        print("Gorevi: \(gorevi)")
+    override func cevreHesapla() -> Double {
+        return 2 * (kenar1 * kenar2)
     }
 }
 
-let personel : Personel = Personel(adiSoyadi: "Ugur Polat", yasi: 28, departman: "Insan Kaynaklari", maas: 5000)
-personel.bilgileriGoster()
-let yonetici : Yonetici = Yonetici(adiSoyadi: "Selma Gundogdu", yasi: 29, departman: "Yazilim", maas: 4500, gorevi: "Genel Mudur")
-yonetici.bilgileriGoster()
+class Kare : Dikdortgen {
+    init(kenar1 : Double) {
+        super.init(kenar1: kenar1, kenar2: kenar1)
+        self.genelAdi = "Kare"
+    }
+}
+
+class Daire : GeometrikSekil {
+    var yaricap : Double
+    init(yaricap : Double) {
+        self.yaricap = yaricap
+        super.init(genelAdi: "Daire")
+    }
+    
+    override func alanHesapla() -> Double {
+        return Double.pi*yaricap*yaricap
+    }
+    
+    override func cevreHesapla() -> Double {
+        return 2*Double.pi*yaricap
+    }
+}
+
+var d1 : Dikdortgen = Dikdortgen(kenar1: 15, kenar2: 20)
+print(d1.alanHesapla())
+print(d1.cevreHesapla())
+print(d1.genelAdi)
+print(d1.kenar1)
+print(d1.kenar2)
+
+print("------------------------------------------------")
+var k1 : Kare = Kare(kenar1: 10)
+print("""
+Genel Adi: \(k1.genelAdi)
+Alani : \(k1.alanHesapla())
+Cevresi: \(k1.cevreHesapla())
+Kenar1 : \(k1.kenar1)
+""")
+
+print("------------------------------------------------")
+var da1 : Daire = Daire(yaricap: 10.0)
+print("""
+Genel Adi: \(da1.genelAdi)
+Alani : \(da1.alanHesapla())
+Cevresi: \(da1.cevreHesapla())
+Kenar1 : \(da1.yaricap)
+""")
+*/
+
+/*
+// Static
+
+class MatemataikselIslemler {
+    
+    static func topla(sayi1 : Double, sayi2: Double) -> Double {
+        return sayi1 + sayi2
+    }
+    
+    static func carp(sayi1 : Double, sayi2: Double) -> Double {
+        return sayi1 * sayi2
+    }
+    
+}
+
+print(MatemataikselIslemler.topla(sayi1: 2, sayi2: 2))
 
 
-let yonetici_2 : Yonetici = Yonetici()
-yonetici_2.bilgileriGoster()
+class Kisi {
+    var adi : String
+    var soyadi : String
+    var yas : Int
+    static var kisiSayisi : Int = 0
+    
+    init(adi: String, soyadi: String, yas: Int) {
+        self.adi = adi
+        self.soyadi = soyadi
+        self.yas = yas
+        Kisi.kisiSayisi += 1
+    }
+        
+}
+
+class KanaryaSevenlerDernegi {
+    static var genelBaskan : Kisi = Kisi(adi: "Ugur", soyadi: "Polat", yas: 28)
+    static var maxUyeSayisi : Int = 15
+    var uyeler : [Kisi]
+    
+    init() {
+        uyeler = [Kisi]()
+    }
+    
+    func yeniUyeKaydi(kisi : Kisi) {
+        if kisi.yas < 18 {
+            print("Yasiniz 18'den kucuk oldugu icin uye olamazsiniz.")
+        } else {
+            print("Yeni uye kaydiniz yapilmistir. Tebrikler")
+            uyeler.append(kisi)
+        }
+    }
+}
+
+var k1 : Kisi = Kisi(adi: "Steve", soyadi: "Jobs", yas: 56)
+print(Kisi.kisiSayisi)
+var k2 : Kisi = Kisi(adi: "Bill", soyadi: "Gates", yas: 54)
+print(Kisi.kisiSayisi)
+
+
+var dernek : KanaryaSevenlerDernegi = KanaryaSevenlerDernegi()
+var dernek2 : KanaryaSevenlerDernegi = KanaryaSevenlerDernegi()
+var dernek3 : KanaryaSevenlerDernegi = KanaryaSevenlerDernegi()
+
+print(KanaryaSevenlerDernegi.genelBaskan.adi)
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
