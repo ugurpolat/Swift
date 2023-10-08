@@ -436,16 +436,198 @@ var dernek3 : KanaryaSevenlerDernegi = KanaryaSevenlerDernegi()
 print(KanaryaSevenlerDernegi.genelBaskan.adi)
 */
 
+/*
+ // Computed Property
+ 
+class Kareler {
+    var sayi : Double = 10
+    var sayininKaresi : Double = 100
+}
+
+var k1 : Kareler = Kareler()
+print(k1.sayi)
+print(k1.sayininKaresi)
+k1.sayi = 15
+print(k1.sayi)
+print(k1.sayininKaresi)
+print("---------------------")
+
+class Kareler_2 {
+    var sayi : Double = 10
+    var sayininKaresi : Double {
+        get {
+            // deger dondurme islemi yapilir
+            return pow(sayi,2)
+        }
+        set {
+            // deger atama
+            sayi = sqrt(newValue)
+        }
+    }
+}
+
+var k2: Kareler_2 = Kareler_2()
+print(k2.sayi)
+print(k2.sayininKaresi)
+k2.sayi = 15
+print(k2.sayi)
+print(k2.sayininKaresi)
+k2.sayininKaresi = 400
+print(k2.sayi)
+print(k2.sayininKaresi)
+print("---------------------")
+
+class Daire {
+    var yaricap : Double = 10
+    var cap : Double {
+        get {
+            return yaricap * 2
+        }
+        set {
+            yaricap = newValue / 2
+        }
+    }
+}
 
 
+var d1 : Daire = Daire()
+print(d1.cap)
+print(d1.yaricap)
+d1.cap = 15
+print(d1.cap)
+print(d1.yaricap)
+d1.yaricap = 30
+print(d1.cap)
+print(d1.yaricap)
 
 
+class Nokta {
+    var x : Double
+    var y : Double
+    init(x: Double, y: Double) {
+        self.x = x
+        self.y = y
+    }
+    
+    init(){
+        x = 0
+        y = 0
+    }
+}
+
+class Boyut {
+    var genislik : Double
+    var yukseklik : Double
+    init(genislik: Double, yukseklik: Double) {
+        self.genislik = genislik
+        self.yukseklik = yukseklik
+    }
+    
+    init(){
+        genislik = 0
+        yukseklik = 0
+    }
+}
+
+class Dortgen {
+    var baslangic : Nokta = Nokta()
+    var boyut : Boyut = Boyut()
+    
+    init(baslangic: Nokta, boyut: Boyut) {
+        self.baslangic = baslangic
+        self.boyut = boyut
+    }
+    
+    var merkez : Nokta {
+        get {
+            let merkezX = baslangic.x + (boyut.genislik / 2)
+            let merkezY = baslangic.y + (boyut.yukseklik / 2)
+            return Nokta(x: merkezX, y: merkezY)
+        }
+        set(yeniNokta) {
+            baslangic.x = yeniNokta.x - (boyut.genislik / 2)
+            baslangic.y = yeniNokta.y - (boyut.yukseklik / 2)
+        }
+    }
+}
+
+var kare : Dortgen = Dortgen(baslangic: Nokta(x: 5.0, y: 5.0), boyut: Boyut(genislik: 20, yukseklik: 20))
+print("---------------------")
+print(kare.merkez.x)
+print(kare.merkez.y)
+
+kare.baslangic.x = 10
+kare.baslangic.y = 10
+
+print(kare.merkez.x)
+print(kare.merkez.y)
+
+ */
 
 
+// Property observer
+
+class Pozitif {
+    var pozitifDeger : Int = 0 {
+        willSet(yeniDeger) {
+         // deger atamadan once calisir. Bu kod blogu calistiktan sonra deger atanir.
+            print("Pozitif degisken degeri \(pozitifDeger) degerinden \(yeniDeger) degerine guncellencektir.")
+        }
+        didSet(eskiDeger) {
+            // deger atandiktan sonra calisir
+            if pozitifDeger < 0 {
+                    pozitifDeger = eskiDeger
+                    print("Negatif deger giremezsiniz")
+            } else {
+                print("Pozitif degisken degeri \(eskiDeger) degerinden \(pozitifDeger) degerine guncellendi.")
+            }
+            
+        }
+    }
+}
+
+var d1 : Pozitif = Pozitif()
+d1.pozitifDeger = 10
+print(d1.pozitifDeger)
+d1.pozitifDeger = -10
 
 
+class Mesaj {
+    var gonderilecekMesaj : String = "Baslangic" {
+        
+        willSet {
+            print("Gonderilecek mesaj \(gonderilecekMesaj) degerinden \(newValue) degerine guncellenecektir.")
+        } didSet {
+            if gonderilecekMesaj.count == 0 {
+                gonderilecekMesaj = oldValue
+                print("Mesajini bos girilmistir.")
+            }else {
+                mesajKarakterSayisi = gonderilecekMesaj.count
+                degismeSayisi += 1
+            }
+        }
+    }
+    
+    var mesajKarakterSayisi : Int = 9
+    var degismeSayisi : Int = 0
+    func bilgileriGoster() {
+        print("------------------------------")
+        print("Mesaj Degeri: \(gonderilecekMesaj) \nKarakter Sayisi : \(mesajKarakterSayisi) \nDegisme Sayisi : \(degismeSayisi)")
+    }
+}
 
+var m1 : Mesaj = Mesaj()
 
+m1.bilgileriGoster()
+m1.gonderilecekMesaj = "Merhaba Televole"
+m1.bilgileriGoster()
 
+var name : String = "Ugur" {
+    willSet {
+        print("Adin \(name) degerinden  \(newValue) degerine guncellenecektir.")
+    } didSet {
+        print("Adin \(oldValue) degerinden  \(name) degerine guncelledi.")
+    }
+}
 
-
+name = "Hello"
