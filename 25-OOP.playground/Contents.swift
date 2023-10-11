@@ -564,7 +564,7 @@ print(kare.merkez.y)
 
  */
 
-
+/*
 // Property observer
 
 class Pozitif {
@@ -631,3 +631,113 @@ var name : String = "Ugur" {
 }
 
 name = "Hello"
+*/
+
+class Birey {
+    // internal = default protection level
+   private var _adiSoyadi : String?
+   private var _dogumYili : Int?
+   private var _cepTelefonuNumarasi : String?
+    
+    init(adiSoyadi: String, dogumYili: Int, cepTelefonuNumarasi: String) {
+        self.adiSoyadi = adiSoyadi
+        self.dogumYili = dogumYili
+        self.cepTelefonuNumarasi = cepTelefonuNumarasi
+    }
+    
+    func kendiniTanit() {
+        print("--------------------------")
+        print("Adi: \(adiSoyadi)\nYasi: \(2019-dogumYili)\nCep Telefonu Numarasi :\(cepTelefonuNumarasi)")
+    }
+    
+    var adiSoyadi : String {
+        get {
+            return _adiSoyadi!.uppercased()
+        } set {
+            if newValue.count > 0 {
+                _adiSoyadi = newValue
+            }
+        }
+    }
+    
+    var dogumYili : Int {
+        get {
+            return _dogumYili!
+        }
+        set {
+            if newValue > 2019 || newValue < 1900 {
+                _dogumYili = 2019
+            } else {
+                _dogumYili = newValue
+            }
+        }
+    }
+    
+    var cepTelefonuNumarasi : String {
+        get {
+            if(2019 - dogumYili) >= 18 {
+                return _cepTelefonuNumarasi!
+            } else {
+                return "**************"
+            }
+        }
+        set {
+            if newValue.count == 11 {
+                _cepTelefonuNumarasi = newValue
+            } else {
+                print("!!!! Cep telefonu numarasi 11 haneli olmali. Girdiginiz deger : \(newValue.count) haneli. Lutfen duzeltin.")
+            }
+        }
+    }
+    
+    var yasi : Int {
+        get {
+            return 2019-dogumYili
+        }
+    }
+    
+    /*
+     var yasi : Int { return 2019-dogumYili }
+     */
+}
+
+var b1 : Birey = Birey(adiSoyadi: "Ugur", dogumYili: 1990, cepTelefonuNumarasi: "45243543523")
+b1.adiSoyadi = "Hello mello"
+b1.kendiniTanit()
+b1.yasi
+
+class Personel : Birey {
+    var departmani : String
+    var gorevi : String
+    var maasi : Int
+    var tecrube : Int
+    var isBasladigiYil : Int
+    init(adiSoyadi : String, dogumYili : Int, cepTelefonuNumarasi: String,departmani: String, gorevi: String, maasi: Int, tecrube: Int, isBasladigiYil: Int) {
+        self.departmani = departmani
+        self.gorevi = gorevi
+        self.maasi = maasi
+        self.tecrube = tecrube
+        self.isBasladigiYil = isBasladigiYil
+        super.init(adiSoyadi: adiSoyadi, dogumYili: dogumYili, cepTelefonuNumarasi: cepTelefonuNumarasi)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
